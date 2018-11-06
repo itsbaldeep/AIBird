@@ -6,12 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>AI Bird</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
+  <div id="game"></div>
+  <div>
+    <label for="gravity">Change Gravity</label>
+    <input type="number" value="5" id="gravity">
+    <input type="button" value="Change" id="gravityChangeButton">
+  </div>
+  <div>
+    <label for="lift">Change Lift</label>
+    <input type="number" value="5" id="lift">
+    <input type="button" value="Change" id="liftChangeButton">
+  </div>
+  <div>
+    <label for="speed">Change Speed</label>
+    <input type="number" value="5" id="speed">
+    <input type="button" value="Change" id="speedChangeButton">
+  </div>
+  <div>
+    <input type="button" value="God Mode" id="godMode">
+  </div>
   <script src="./src/core.js"></script>
   <script src="./src/events.js"></script>
-  <script src="./src/variables.js"></script>
   <script src="./src/classes/Bird.js"></script>
   <script src="./src/classes/Pillar.js"></script>
   <script src="./src/index.js"></script>

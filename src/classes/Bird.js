@@ -3,8 +3,6 @@ class Bird {
     this.x = x;
     this.y = y;
     this.r = r;
-    this.dx = 2;
-    this.dy = gravity;
   }
 
   show() {
@@ -16,8 +14,7 @@ class Bird {
   }
 
   update() {
-    // if (this.x < width / 2) this.x += this.dx;
-    if (this.y + this.r < height) this.y += this.dy;
-    if (jump) this.y -= gravity + 10;
+    if (bird.y + bird.r < height) this.y += gravity / 4;
+    if (jump) this.y -= lift;
   }
 }

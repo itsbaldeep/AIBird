@@ -9,7 +9,7 @@ height = width > height ? (width = 500) : width;
 canvas.width = canvas.height = width;
 
 // Adding it to the HTML
-document.body.appendChild(canvas);
+document.querySelector("#game").appendChild(canvas);
 
 // Styling
 canvas.style.backgroundColor = "#000";

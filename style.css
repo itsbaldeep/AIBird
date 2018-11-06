@@ -1,0 +1,36 @@
+#gravity {
+  width: 3em;
+}
+
+#gravityChangeButton {
+  width: 6em;
+  border-radius: 1em;
+  box-shadow: 0;
+}
+
+#lift {
+  width: 3em;
+}
+
+#liftChangeButton {
+  width: 6em;
+  border-radius: 1em;
+  box-shadow: 0;
+}
+
+#speed {
+  width: 3em;
+}
+
+#speedChangeButton {
+  width: 6em;
+  border-radius: 1em;
+  box-shadow: 0;
+}
+
+#godMode {
+  color: white;
+  width: 6em;
+  border-radius: 1em;
+  box-shadow: 0;
+}

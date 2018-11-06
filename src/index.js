@@ -3,7 +3,7 @@ const bird = new Bird(width / 5, height / 2, 16);
 const pillars = new Array();
 function addPillars() {
   pillars.push(new Pillar());
-  setTimeout(addPillars, 3000 / gameSpeed);
+  setTimeout(addPillars, 7000 / speed);
 }
 addPillars();
 
@@ -15,7 +15,10 @@ function checkCollision() {
     const topPillar = pillar.t > bird.y - bird.r;
     const botPillar = pillar.b < bird.y + bird.r;
 
-    if (leftEdge && rightEdge && (topPillar || botPillar)) {
+    if (
+      (leftEdge && rightEdge && (topPillar || botPillar)) ||
+      bird.y > height
+    ) {
       bird.y = height / 2;
       pillars.splice(0, pillars.length);
     }
@@ -31,7 +34,10 @@ function draw() {
     pillar.show();
     pillar.update();
   }
-  checkCollision();
+  document.querySelector("#godMode").style.backgroundColor = godMode
+    ? "green"
+    : "red";
+  if (!godMode) checkCollision();
   requestAnimationFrame(draw);
 }
 requestAnimationFrame(draw);

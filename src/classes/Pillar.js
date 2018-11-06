@@ -1,11 +1,11 @@
 class Pillar {
   constructor() {
     this.x = width;
-    this.g = pillarGap;
+    this.g = 150;
     this.t = Math.floor((Math.random() * height) / 3) + height / 4;
     this.b = this.g + this.t;
-    this.w = pillarWidth;
-    this.dx = gameSpeed;
+    this.w = 40;
+    this.dx = speed;
   }
 
   show() {
@@ -18,6 +18,6 @@ class Pillar {
   }
 
   update() {
-    this.x -= this.dx;
+    this.x -= this.dx / 2;
   }
 }
