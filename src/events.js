@@ -5,38 +5,33 @@ let speed = 5;
 let godMode = 0;
 
 // Space key
-canvas.addEventListener("keydown", e => (e.key == " " ? (jump = 1) : 0));
-canvas.addEventListener("keyup", e => (e.key == " " ? (jump = 0) : 0));
+document.addEventListener("keydown", e => (e.keyCode == 32 ? (jump = 1) : (jump = 0)));
+document.addEventListener("keyup", e => (e.keyCode == 32 ? (jump = 0) : (jump = 0)));
 
 // Mouse click
-canvas.addEventListener("mousedown", e => (jump = 1));
-canvas.addEventListener("mouseup", e => (jump = 0));
+canvas.addEventListener("mousedown", () => (jump = 1));
+canvas.addEventListener("mouseup", () => (jump = 0));
+canvas.addEventListener("mousedown", e => e.preventDefault());
 
 // Touch
-canvas.addEventListener("touchstart", e => (jump = 1));
-canvas.addEventListener("touchend", e => (jump = 0));
+canvas.addEventListener("touchstart", () => (jump = 1));
+canvas.addEventListener("touchend", () => (jump = 0));
 canvas.addEventListener("touchstart", e => e.preventDefault());
 
 // Settings
 document
   .querySelector("#gravityChangeButton")
-  .addEventListener(
-    "click",
-    () => (gravity = parseInt(document.querySelector("#gravity").value))
-  );
+  .addEventListener("click", () => (gravity = parseInt(document.querySelector("#gravity").value)));
 
 document
   .querySelector("#liftChangeButton")
-  .addEventListener(
-    "click",
-    () => (lift = parseInt(document.querySelector("#lift").value))
-  );
+  .addEventListener("click", () => (lift = parseInt(document.querySelector("#lift").value)));
+
 document
   .querySelector("#speedChangeButton")
-  .addEventListener(
-    "click",
-    () => (speed = parseInt(document.querySelector("#speed").value))
-  );
-document
-  .querySelector("#godMode")
-  .addEventListener("click", () => (godMode = !godMode));
+  .addEventListener("click", () => (speed = parseInt(document.querySelector("#speed").value)));
+
+document.querySelector("#godMode").addEventListener("click", () => {
+  godMode = !godMode;
+  document.querySelector("#godMode").style.backgroundColor = godMode ? "green" : "red";
+});

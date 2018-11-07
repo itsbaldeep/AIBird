@@ -1,43 +1,45 @@
-// Making the bird and pillars
-const bird = new Bird(width / 5, height / 2, 16);
+// Making the objects
+const bird = new Bird();
 const pillars = new Array();
+const clouds = new Array();
 function addPillars() {
   pillars.push(new Pillar());
-  setTimeout(addPillars, 7000 / speed);
+  setTimeout(addPillars, 7500 / speed);
 }
 addPillars();
 
-// Collision Detection
-function checkCollision() {
-  for (let pillar of pillars) {
-    const leftEdge = pillar.x < bird.x + bird.r;
-    const rightEdge = pillar.x + pillar.w > bird.x - bird.r;
-    const topPillar = pillar.t > bird.y - bird.r;
-    const botPillar = pillar.b < bird.y + bird.r;
-
-    if (
-      (leftEdge && rightEdge && (topPillar || botPillar)) ||
-      bird.y > height
-    ) {
-      bird.y = height / 2;
-      pillars.splice(0, pillars.length);
-    }
-  }
+function addClouds() {
+  clouds.push(new Cloud());
+  setTimeout(addClouds, 15000 / speed);
 }
+addClouds();
 
 // Main game loop
 function draw() {
   context.clearRect(0, 0, width, height);
+
+  // Cloud logic
+  for (let cloud of clouds) {
+    cloud.show();
+    cloud.update();
+  }
+
+  // Bird logic
   bird.show();
   bird.update();
+  if (jump) bird.up();
+
+  // Pillar logic
   for (let pillar of pillars) {
     pillar.show();
     pillar.update();
+
+    // Collision Detection and Restarting the game
+    if (bird.hits(pillar) && !godMode) {
+      bird.y = height / 2;
+      pillars.splice(pillars.indexOf(pillar), 1);
+    }
   }
-  document.querySelector("#godMode").style.backgroundColor = godMode
-    ? "green"
-    : "red";
-  if (!godMode) checkCollision();
   requestAnimationFrame(draw);
 }
 requestAnimationFrame(draw);

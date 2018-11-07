@@ -12,5 +12,14 @@ canvas.width = canvas.height = width;
 document.querySelector("#game").appendChild(canvas);
 
 // Styling
-canvas.style.backgroundColor = "#000";
-document.body.style.margin = "0";
+canvas.style.backgroundColor = "rgb(109,182,227)";
+
+// Loading sprites
+const birdSprite = new Array();
+birdSprite[0] = new Image();
+birdSprite[0].src = "../sprites/bird-0.png";
+birdSprite[1] = new Image();
+birdSprite[1].src = "../sprites/bird-1.png";
+
+const cloudSprite = new Image();
+cloudSprite.src = "../sprites/cloud.png";
