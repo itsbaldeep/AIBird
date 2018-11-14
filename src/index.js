@@ -2,17 +2,8 @@
 const bird = new Bird();
 const pillars = new Array();
 const clouds = new Array();
-function addPillars() {
-  pillars.push(new Pillar());
-  setTimeout(addPillars, 7500 / speed);
-}
-addPillars();
-
-function addClouds() {
-  clouds.push(new Cloud());
-  setTimeout(addClouds, 15000 / speed);
-}
-addClouds();
+setInterval(() => pillars.push(new Pillar()), 7500 / speed);
+setInterval(() => clouds.push(new Cloud()), 15000 / speed);
 
 // Main game loop
 function draw() {
