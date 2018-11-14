@@ -3,16 +3,14 @@ class Bird {
     this.x = width / 5; // Bird's X location
     this.y = height / 2; // Bird's Y location
     this.r = 60; // Bird's radius
-    this.s = 0;
+    this.s = 0; // Bird's sprite index
   }
 
-  // Draw the bird as sprite, once every 15 frames
+  // Draw the bird as sprite
   show() {
-    if (this.s % 30 == 0) this.s = 0;
-    context.beginPath();
-    context.drawImage(birdSprite[this.s < 15 ? 0 : 1], this.x, this.y, this.r, this.r);
-    context.closePath();
-    this.s++;
+    if (this.s++ > 30) this.s = 0;
+    const index = this.s > 15 ? 0 : 1;
+    context.drawImage(birdSprite[index], this.x, this.y, this.r, this.r);
   }
 
   // Lift the bird
