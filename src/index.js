@@ -54,7 +54,7 @@ function draw() {
   }
 
   // Score
-  context.font = `${canvas.width / 15}px Consolas`
+  context.font = `${canvas.height / 15}px Consolas`
   context.fillStyle = "white"
   context.textAlign = "center"
   context.fillText("Score: " + score.toString(), canvas.width / 2, canvas.height / 6)
