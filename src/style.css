@@ -1,0 +1,8 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+canvas {
+  background-color: rgb(109,182,227);
+}

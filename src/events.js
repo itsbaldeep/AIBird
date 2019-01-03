@@ -1,37 +1,35 @@
-let jump = 0;
-let gravity = 5;
-let lift = 5;
-let speed = 5;
-let godMode = 0;
+/*
+ * This file contains event handling
+ */
+
+let input = false
+let first = false
+
+const flip = () => input = !input
+function startgame() {
+  if (!first) {
+    requestAnimationFrame(draw)
+    setInterval(() => pillars.push(new Pillar()), 1500)
+    setInterval(() => clouds.push(new Cloud()), 1500)
+    first = true
+  }
+}
 
 // Space key
-document.addEventListener("keydown", e => (e.keyCode == 32 ? (jump = 1) : (jump = 0)));
-document.addEventListener("keyup", e => (e.keyCode == 32 ? (jump = 0) : (jump = 0)));
+document.addEventListener("keydown", e => e.key == " " ? flip() : 0)
+document.addEventListener("keyup", e => e.key == " " ? flip() : 0)
 
 // Mouse click
-canvas.addEventListener("mousedown", () => (jump = 1));
-canvas.addEventListener("mouseup", () => (jump = 0));
-canvas.addEventListener("mousedown", e => e.preventDefault());
+canvas.addEventListener("mousedown", e => e.preventDefault())
+canvas.addEventListener("mousedown", flip)
+canvas.addEventListener("mouseup", flip)
 
 // Touch
-canvas.addEventListener("touchstart", () => (jump = 1));
-canvas.addEventListener("touchend", () => (jump = 0));
-canvas.addEventListener("touchstart", e => e.preventDefault());
+canvas.addEventListener("touchstart", e => e.preventDefault())
+canvas.addEventListener("touchstart", flip)
+canvas.addEventListener("touchend", flip)
 
-// Settings
-document
-  .querySelector("#gravityChangeButton")
-  .addEventListener("click", () => (gravity = parseInt(document.querySelector("#gravity").value)));
-
-document
-  .querySelector("#liftChangeButton")
-  .addEventListener("click", () => (lift = parseInt(document.querySelector("#lift").value)));
-
-document
-  .querySelector("#speedChangeButton")
-  .addEventListener("click", () => (speed = parseInt(document.querySelector("#speed").value)));
-
-document.querySelector("#godMode").addEventListener("click", () => {
-  godMode = !godMode;
-  document.querySelector("#godMode").style.backgroundColor = godMode ? "green" : "red";
-});
+// Start game
+document.addEventListener("keydown", startgame)
+document.addEventListener("mousedown", startgame)
+document.addEventListener("touchstart", startgame)

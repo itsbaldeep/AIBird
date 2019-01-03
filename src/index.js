@@ -1,36 +1,65 @@
+/*
+ * This is entrypoint file
+ * It runs all the logic and initializes the game
+ */
+
 // Making the objects
-const bird = new Bird();
-const pillars = new Array();
-const clouds = new Array();
-setInterval(() => pillars.push(new Pillar()), 7500 / speed);
-setInterval(() => clouds.push(new Cloud()), 15000 / speed);
+const bird = new Bird()
+let pillars = []
+let clouds = []
 
-// Main game loop
+// Score
+let score = 0
+let highscore = 0
+
+// Game over function
+function gameover() {
+  if (score > highscore) highscore = score
+  bird.y = canvas.height / 2
+  bird.vel = 0
+  pillars = []
+  clouds = []
+  score = 0
+}
+
+// Defining the draw function
 function draw() {
-  context.clearRect(0, 0, width, height);
+  context.clearRect(0, 0, canvas.width, canvas.height)
 
-  // Cloud logic
+  // Clouds
   for (let cloud of clouds) {
-    cloud.show();
-    cloud.update();
+    cloud.show()
+    cloud.update()
   }
 
-  // Bird logic
-  bird.show();
-  bird.update();
-  if (jump) bird.up();
+  // Bird
+  bird.show()
+  bird.update()
+  if (input) bird.jump()
+  if (bird.offscreen()) gameover()
 
-  // Pillar logic
+  // Pillars
   for (let pillar of pillars) {
-    pillar.show();
-    pillar.update();
+    pillar.show()
+    pillar.update()
 
-    // Collision Detection and Restarting the game
-    if (bird.hits(pillar) && !godMode) {
-      bird.y = height / 2;
-      pillars.splice(pillars.indexOf(pillar), 1);
+    // Score logic
+    if (pillar.passes()) {
+      score++
+      if (score > highscore) highscore++
     }
+
+    // Collision logic
+    if (bird.hits(pillar)) gameover()
   }
+
+  // Score
+  context.font = `${canvas.width / 15}px Consolas`
+  context.fillStyle = "white"
+  context.textAlign = "center"
+  context.fillText("Score: " + score.toString(), canvas.width / 2, canvas.height / 6)
+  context.fillText("High Score: " + highscore.toString(), canvas.width / 2, canvas.height / 10)
+
+  // Recursively calling the draw function
   requestAnimationFrame(draw);
 }
-requestAnimationFrame(draw);

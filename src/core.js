@@ -1,25 +1,31 @@
-// Making a canvas and getting Context
-const canvas = document.createElement("canvas");
-const context = canvas.getContext("2d");
+/*
+ * This is the setup/preload file, it is loaded before anything
+ * It contains generation of canvas and loading of sprites
+ */
+
+// Making canvas object and getting context
+const canvas = document.createElement("canvas")
+const context = canvas.getContext("2d")
 
 // Setting height and width
-let height = window.screen.height;
-let width = window.screen.width;
-height = width > height ? (width = 500) : width;
-canvas.width = canvas.height = width;
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
 
-// Adding it to the HTML
-document.querySelector("#game").appendChild(canvas);
-
-// Styling
-canvas.style.backgroundColor = "rgb(109,182,227)";
+// Appending to the HTML
+document.body.appendChild(canvas)
 
 // Loading sprites
-const birdSprite = new Array();
-birdSprite[0] = new Image();
-birdSprite[0].src = "./sprites/bird-0.png";
-birdSprite[1] = new Image();
-birdSprite[1].src = "./sprites/bird-1.png";
+const sprites = {
+    bird: [new Image(), new Image()],
+    cloud: new Image()
+}
 
-const cloudSprite = new Image();
-cloudSprite.src = "./sprites/cloud.png";
+sprites.cloud.src = "./sprites/cloud.png"
+sprites.bird[0].src = "./sprites/bird-0.png"
+sprites.bird[1].src = "./sprites/bird-1.png"
+
+// Showing some text
+context.font = `${canvas.width / 10}px Consolas`
+context.fillStyle = "white"
+context.textAlign = "center"
+context.fillText("Press to play", canvas.width / 2, canvas.height / 2)

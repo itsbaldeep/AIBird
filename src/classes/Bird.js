@@ -1,35 +1,57 @@
+/*
+ * This is the Bird class
+ * Contains game logic and visualization
+ */
+
 class Bird {
+
+  // Constructor function
   constructor() {
-    this.x = width / 5; // Bird's X location
-    this.y = height / 2; // Bird's Y location
-    this.r = 60; // Bird's radius
-    this.s = 0; // Bird's sprite index
+
+    // Transform
+    this.x = canvas.width / 5 
+    this.y = canvas.height / 2
+    this.r = 60
+
+    // Physics
+    this.vel = 0
+    this.grav = 0.8
+
+    // Sprite index
+    this.i = 0
+
   }
 
-  // Draw the bird as sprite
-  show() {
-    if (this.s++ > 30) this.s = 0;
-    const index = this.s > 15 ? 0 : 1;
-    context.drawImage(birdSprite[index], this.x, this.y, this.r, this.r);
+  // Jump up
+  jump() {
+    this.vel = -6
   }
 
-  // Lift the bird
-  up() {
-    this.y -= lift * 1.5;
-  }
-
-  // Pull the bird to the ground
+  // Apply forces
   update() {
-    if (this.y < 0) this.y = 0;
-    if (this.y + this.r < height) this.y += gravity / 3;
+    this.vel += this.grav
+    this.y += this.vel
   }
 
-  // Check if it hits any pillar
-  hits(pillar) {
-    const leftEdge = pillar.x < this.x + this.r;
-    const rightEdge = pillar.x + pillar.w > this.x;
-    const topPillar = pillar.t > this.y;
-    const botPillar = pillar.b < this.y + this.r;
-    return leftEdge && rightEdge && (topPillar || botPillar);
+  // Displaying the bird
+  show() {
+    if (this.i++ > 30) this.i = 0
+    context.drawImage(sprites.bird[+(this.i > 15)], this.x, this.y, this.r, this.r)
   }
+
+  // Collision detection
+  hits(pillar) {
+    const leftEdge = pillar.x < this.x + this.r
+    const rightEdge = pillar.x + pillar.w > this.x
+    const topPillar = pillar.t > this.y
+    const botPillar = pillar.b < this.y + this.r
+    return leftEdge && rightEdge && (topPillar || botPillar)
+  }
+
+
+  // Offscreen detection
+  offscreen() {
+    return bird.y > canvas.height
+  }
+
 }

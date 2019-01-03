@@ -1,25 +1,54 @@
+/*
+ * This is the Pillar class
+ * Contains game logic and visualization
+ */
+
 class Pillar {
+
+  // Constructor function
   constructor() {
-    this.x = width; // Drawing at the right edge of canvas
-    this.g = 200; // Gap between top and bottom pillar
-    this.t = Math.floor((Math.random() * height) / 6) + height / 8; // Top pillar Y location
-    this.b = this.g + this.t; // Bottom pillar Y location
-    this.w = 40; // Width of the Pillars
-    this.dx = speed; // Speed of the pillars
+    
+    // Transform
+    this.x = canvas.width
+    this.t = Math.random() * canvas.height / 3 + canvas.height / 5
+    this.gap = 200
+    this.b = this.gap + this.t
+    this.w = 40
+
+    // Physics
+    this.vel = 2.5
+
+    // Check if its passed
+    this.passed = false
   }
 
-  // Draw pillars as two yellow rectangles
+  // Displaying the pillars
   show() {
-    context.beginPath();
-    context.rect(this.x, 0, this.w, this.t);
-    context.rect(this.x, this.b, this.w, this.b);
-    context.fillStyle = "green";
-    context.fill();
-    context.closePath();
+    context.beginPath()
+
+    // Top pillar and bottom pillar
+    context.rect(this.x, 0, this.w, this.t)
+    context.rect(this.x, this.b, this.w, this.b)
+
+    // Styling
+    context.fillStyle = "green"
+    context.fill()
+
+    context.closePath()
   }
 
   // Push the pillars to left
   update() {
-    this.x -= this.dx / 2;
+    this.x -= this.vel
   }
+  
+  // Check if it safely goes offscreen
+  passes() {
+    if (this.x < canvas.width / 5 && !this.passed) {
+      this.passed = true;
+      return true;
+    }
+    return false;
+  }
+
 }
